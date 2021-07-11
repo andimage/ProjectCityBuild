@@ -2,10 +2,14 @@
 
 namespace App\Entities\Accounts\Models;
 
+use Altek\Eventually\Eventually;
 use App\Entities\Accounts\Resources\AccountResource;
 use App\Entities\Donations\Models\Donation;
 use App\Entities\Donations\Models\DonationPerk;
 use App\Entities\Groups\Models\Group;
+use App\Library\Auditing\Contracts\Recordable;
+use App\Library\Auditing\FilterableAccountable;
+use App\Library\Auditing\FullRedact;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,9 +17,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\URL;
 use Laravel\Scout\Searchable;
 
-final class Account extends Authenticatable
+final class Account extends Authenticatable implements Recordable
 {
-    use Notifiable, Searchable, HasFactory;
+    use Notifiable, Searchable, HasFactory, Eventually, FilterableAccountable;
+    use \App\Library\Auditing\Recordable;
 
     protected $table = 'accounts';
 
@@ -43,6 +48,25 @@ final class Account extends Authenticatable
 
     protected $casts = [
         'is_totp_enabled' => 'boolean',
+    ];
+
+    protected $recordableEvents = [
+        'created',
+        'updated',
+        'deleted',
+        'synced',
+        'attached',
+        'detached',
+    ];
+
+    /**
+     * @var string[] Fields to redact for auditing
+     */
+    protected $ciphers = [
+        'password' => FullRedact::class,
+        'remember_token' => FullRedact::class,
+        'totp_secret' => FullRedact::class,
+        'totp_backup_code' => FullRedact::class,
     ];
 
     public function toSearchableArray()
@@ -172,5 +196,15 @@ final class Account extends Authenticatable
     public function toResource()
     {
         return AccountResource::make($this);
+    }
+
+    public function getPanelShowUrl(): string
+    {
+        return route('front.panel.accounts.show', $this);
+    }
+
+    public function getHumanRecordName(): string
+    {
+        return "Account " . $this->username ?? $this->email;
     }
 }

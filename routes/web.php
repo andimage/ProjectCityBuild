@@ -258,6 +258,23 @@ Route::group(['prefix' => 'panel', 'as' => 'front.panel.', 'namespace' => 'Panel
         'uses' => 'MinecraftPlayerLookupController',
     ]);
 
+    Route::group(['prefix' => 'audits', 'as' => 'audits.', 'namespace' => 'Audit'], function () {
+        Route::get('by/{account}', [
+            'as' => 'by-account',
+            'uses' => 'AccountAuditsController'
+        ]);
+
+        Route::get('entry/{ledger}', [
+            'as' => 'show',
+            'uses' => 'AuditController@show',
+        ]);
+
+        Route::get('{label}/{key}', [
+            'as' => 'index',
+            'uses' => 'AuditController@index',
+        ]);
+    });
+
     Route::post('minecraft-players/{minecraft_player}/reload-alias', [
         'as' => 'minecraft-players.reload-alias',
         'uses' => 'MinecraftPlayerReloadAliasController',

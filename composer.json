@@ -10,6 +10,8 @@
     "require": {
         "php": "^7.4",
         "ext-json": "*",
+        "altek/accountant": "^3.0",
+        "altek/eventually": "^2.0",
         "awssat/discord-notification-channel": "^1.4",
         "bacon/bacon-qr-code": "^2.0",
         "doctrine/dbal": "^2.6",

@@ -5,13 +5,16 @@
 @endsection
 
 @section('toolbar')
-    <form action="{{ route('front.panel.minecraft-players.reload-alias', $minecraftPlayer) }}" method="post">
-        @csrf
-        <div class="btn-group btn-group-sm" role="group">
-            <a href="https://analytics.pcbmc.co/player/{{ $minecraftPlayer->dashedUuid }}" class="btn btn-outline-secondary"><i class="fas fa-external-link-square-alt"></i> Plan</a>
-            <button type="submit" class="btn btn-outline-secondary"><i class="fas fa-sync"></i> Reload Name</button>
-        </div>
-    </form>
+    <div class="d-flex align-items-center">
+        <a href="{{ $minecraftPlayer->getAuditListUrl() }}" class="btn btn-outline-secondary btn-sm me-2"><i class="fas fa-list"></i> Audit</a>
+        <form action="{{ route('front.panel.minecraft-players.reload-alias', $minecraftPlayer) }}" method="post">
+            @csrf
+            <div class="btn-group btn-group-sm" role="group">
+                <a href="https://analytics.pcbmc.co/player/{{ $minecraftPlayer->dashedUuid }}" class="btn btn-outline-secondary"><i class="fas fa-external-link-square-alt"></i> Plan</a>
+                <button type="submit" class="btn btn-outline-secondary"><i class="fas fa-sync"></i> Reload Name</button>
+            </div>
+        </form>
+    </div>
 @endsection
 
 @section('body')

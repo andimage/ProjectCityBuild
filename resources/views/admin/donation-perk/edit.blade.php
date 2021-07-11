@@ -2,6 +2,10 @@
 
 @section('title', 'Edit Donation Perk #' . $perk->donation_perks_id)
 
+@section('toolbar')
+    <a href="{{ $perk->getAuditListUrl() }}" class="btn btn-outline-secondary btn-sm me-2"><i class="fas fa-list"></i> Audit</a>
+@endsection
+
 @section('body')
     <div class="row">
         <div class="col-md-8">

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Entities\Accounts\Models\Account;
 use App\Entities\Donations\Models\Donation;
+use App\Entities\Donations\Models\DonationPerk;
 use App\Entities\GamePlayerType;
 use App\Entities\Payments\AccountPaymentType;
 use App\Entities\Players\Models\MinecraftPlayer;
@@ -45,6 +47,8 @@ final class AppServiceProvider extends ServiceProvider
         Relation::morphMap([
             AccountPaymentType::Donation => Donation::class,
             GamePlayerType::Minecraft => MinecraftPlayer::class,
+            'account' => Account::class,
+            'donation_perk' => DonationPerk::class,
         ]);
 
         Blade::component('navbar', NavBarComponent::class);

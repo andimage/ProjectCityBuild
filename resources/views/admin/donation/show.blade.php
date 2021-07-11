@@ -2,6 +2,10 @@
 
 @section('title', 'Donation #' . $donation->donation_id)
 
+@section('toolbar')
+    <a href="{{ $donation->getAuditListUrl() }}" class="btn btn-outline-secondary btn-sm me-2"><i class="fas fa-list"></i> Audit</a>
+@endsection
+
 @section('body')
     <div class="row row-cols-md-2">
         <div class="col">

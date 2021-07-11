@@ -5,13 +5,16 @@
 @endsection
 
 @section('toolbar')
-    <form action="{{ route('front.panel.accounts.force-discourse-sync', $account) }}" method="post" class="d-inline">
-        @csrf
-        <div class="btn-group btn-group-sm" role="group">
-            <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="fas fa-sync"></i> SSO Sync</button>
-            <a href="{{ route('front.panel.accounts.discourse-admin-redirect', $account) }}" class="btn btn-outline-secondary"><i class="fas fa-external-link-square-alt"></i> Forum Admin</a>
-        </div>
-    </form>
+    <div class="d-flex align-items-center">
+        <a href="{{ $account->getAuditListUrl() }}" class="btn btn-outline-secondary btn-sm me-2"><i class="fas fa-list"></i> Audit</a>
+        <form action="{{ route('front.panel.accounts.force-discourse-sync', $account) }}" method="post" class="d-inline">
+            @csrf
+            <div class="btn-group btn-group-sm" role="group">
+                <button type="submit" class="btn btn-sm btn-outline-secondary"><i class="fas fa-sync"></i> SSO Sync</button>
+                <a href="{{ route('front.panel.accounts.discourse-admin-redirect', $account) }}" class="btn btn-outline-secondary"><i class="fas fa-external-link-square-alt"></i> Forum Admin</a>
+            </div>
+        </form>
+    </div>
 @endsection
 
 @section('body')

@@ -5,14 +5,16 @@ namespace App\Entities\Players\Models;
 use App\Entities\Accounts\Models\Account;
 use App\Entities\Bans\BannableModelInterface;
 use App\Entities\Bans\Models\GameBan;
+use App\Library\Auditing\Contracts\Recordable;
 use App\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-final class MinecraftPlayer extends Model implements BannableModelInterface
+final class MinecraftPlayer extends Model implements BannableModelInterface, Recordable
 {
     use HasFactory;
+    use \App\Library\Auditing\Recordable;
 
     protected $table = 'players_minecraft';
 
@@ -82,5 +84,15 @@ final class MinecraftPlayer extends Model implements BannableModelInterface
         $this->last_synced_at = $this->freshTimestamp();
 
         return $this->save();
+    }
+
+    public function getPanelShowUrl(): string
+    {
+        return route('front.panel.minecraft-players.show', $this);
+    }
+
+    public function getHumanRecordName(): string
+    {
+        return "MC Player " . $this->uuid;
     }
 }
