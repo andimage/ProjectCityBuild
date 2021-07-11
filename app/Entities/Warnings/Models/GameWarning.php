@@ -4,6 +4,9 @@ namespace App\Entities\Warnings\Models;
 
 use App\Model;
 
+/**
+ * @deprecated
+ */
 final class GameWarning extends Model
 {
     protected $table = 'game_network_warnings';

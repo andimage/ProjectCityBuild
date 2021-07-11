@@ -5,9 +5,9 @@ namespace App\Console;
 use App\Console\Commands\CleanupUnactivatedAccountsCommand;
 use App\Console\Commands\DeactivateDonatorPerksCommand;
 use App\Console\Commands\GenerateSitemapCommand;
-use App\Console\Commands\QueryServerCommand;
 use App\Console\Commands\RepairMissingGroupsCommand;
 use App\Console\Commands\ServerKeyCreateCommand;
+use App\Console\Commands\ServerQueryCommand;
 use App\Console\Commands\StripUUIDHyphensCommand;
 use App\Entities\Environment;
 use Illuminate\Console\Scheduling\Schedule;
@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        QueryServerCommand::class,
+        ServerQueryCommand::class,
         ServerKeyCreateCommand::class,
         StripUUIDHyphensCommand::class,
         RepairMissingGroupsCommand::class,

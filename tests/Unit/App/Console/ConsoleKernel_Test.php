@@ -10,7 +10,10 @@ final class ConsoleKernel_Test extends TestCase
 
     public function testCommand_QueryAllServers()
     {
-        $this->artisan('query:status --all')
+        $this->artisan('server:query --all')
+            ->assertExitCode(0);
+
+        $this->artisan('server:query --all --background')
             ->assertExitCode(0);
     }
 

@@ -178,6 +178,7 @@ return [
         App\Library\Discourse\DiscourseServiceProvider::class,
         App\Library\Recaptcha\RecaptchaServiceProvider::class,
 
+        Domain\ServerStatus\ServerStatusProvider::class,
     ],
 
     /*
