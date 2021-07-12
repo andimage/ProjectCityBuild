@@ -178,6 +178,10 @@ return [
         App\Library\Discourse\DiscourseServiceProvider::class,
         App\Library\Recaptcha\RecaptchaServiceProvider::class,
 
+        /*
+         * Domain logic Service Providers...
+         */
+        Domain\PlayerFetch\PlayerFetchProvider::class,
         Domain\ServerStatus\ServerStatusProvider::class,
     ],
 

@@ -4,10 +4,12 @@ namespace Tests\Unit\Domain\ServerStatus;
 
 use App\Entities\Servers\Models\Server;
 use Domain\ServerStatus\Entities\ServerQueryResult;
+use Domain\ServerStatus\Events\ServerStatusFetched;
 use Domain\ServerStatus\Jobs\ServerQueryJob;
 use Domain\ServerStatus\Repositories\ServerStatusRepository;
 use Domain\ServerStatus\ServerQueryService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use Queue;
 use Tests\TestCase;
 
@@ -94,5 +96,21 @@ class ServerQueryService_Test extends TestCase
         $service->query($server);
 
         Queue::assertPushed(ServerQueryJob::class, 1);
+    }
+
+    public function testFiresEventAfterFetchingStatus()
+    {
+        Event::fake();
+
+        $expectedResult = ServerQueryResult::offline();
+
+        $adapter = new ServerQueryAdapterMock($expectedResult);
+        $adapterFactory = new ServerQueryAdapterFactoryMock($adapter);
+        $service = new ServerQueryService($adapterFactory);
+        $server = Server::factory()->hasCategory()->create();
+
+        $service->querySynchronously($server, new ServerStatusRepository());
+
+        Event::assertDispatched(ServerStatusFetched::class);
     }
 }

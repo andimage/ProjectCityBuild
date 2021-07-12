@@ -84,7 +84,6 @@ class MojangPlayerApi
      *
      * The API only allows a max of 10 names per lookup.
      *
-     *
      * @return array
      *
      * @throws TooManyRequestsException

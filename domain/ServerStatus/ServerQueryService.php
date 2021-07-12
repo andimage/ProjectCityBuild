@@ -4,6 +4,7 @@ namespace Domain\ServerStatus;
 
 use App\Entities\Servers\Models\Server;
 use Domain\ServerStatus\Entities\ServerQueryResult;
+use Domain\ServerStatus\Events\ServerStatusFetched;
 use Domain\ServerStatus\Exceptions\UnsupportedGameException;
 use Domain\ServerStatus\Jobs\ServerQueryJob;
 use Domain\ServerStatus\Repositories\ServerStatusRepository;
@@ -22,8 +23,6 @@ final class ServerQueryService
      * Queries the given server and returns its current status.
      *
      * This operation will block the current process until the query succeeds or fails
-     *
-     *
      *
      * @throws UnsupportedGameException
      */
@@ -44,6 +43,8 @@ final class ServerQueryService
 
         $end = microtime(true) - $start;
         Log::notice('Fetch completed in '.($end / 1000).'ms', $status->toArray());
+
+        ServerStatusFetched::dispatch($status);
 
         return $status;
     }
