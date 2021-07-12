@@ -32,6 +32,6 @@ final class MojangUUIDFetchAdapter implements PlayerFetchAdapter
             $players = array_merge($players, $response);
         }
 
-       return $players;
+        return $players;
     }
 }

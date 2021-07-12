@@ -35,7 +35,7 @@ final class PlayerFetchService
             case GameType::Minecraft:
                 return new MojangUUIDFetchAdapter(new MojangPlayerApi());
             default:
-                throw new UnsupportedGameException($gameType->name()." is not supported");
+                throw new UnsupportedGameException($gameType->name().' is not supported');
         }
     }
 }

@@ -19,11 +19,9 @@ class ServerStatusFetchedListener
     /**
      * Handle the event.
      *
-     * @param ServerStatusFetched $event
      * @return void
      */
     public function handle(ServerStatusFetched $event)
     {
-
     }
 }

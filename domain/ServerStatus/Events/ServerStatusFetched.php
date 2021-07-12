@@ -4,7 +4,6 @@ namespace Domain\ServerStatus\Events;
 
 use App\Entities\GameType;
 use Domain\ServerStatus\Entities\ServerQueryResult;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
